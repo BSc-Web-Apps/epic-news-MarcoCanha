@@ -1,4 +1,4 @@
-import logo from '/app/assets/svg/icon-placeholder.svg'
+import logo from '/app/assets/jpg/portrait-01.jpg'
 
 export interface FooterProps {
 	companyName?: string
@@ -13,7 +13,7 @@ const FooterBasic = ({
 		<footer className="bg-secondary dark:bg-dark-secondary py-16">
 			<div className="container flex flex-col items-center justify-between gap-y-8 lg:flex-row">
 				<div className="w-20">
-					<img src={logo} alt={altText} />
+					<img src={logo} alt={altText} className="rounded-xl" />
 				</div>
 
 				<div className="text-muted-foreground text-opacity-50 dark:text-dark-muted-foreground text-xs">
