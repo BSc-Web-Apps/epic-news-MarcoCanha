@@ -16,6 +16,40 @@ export const links: Route.LinksFunction = () => {
 export { meta } from './__root.client.tsx'
 export { headers, loader } from './__root.server.tsx'
 
+// Define the TeamMemberCardProps interface
+interface TeamMemberCardProps {
+	name: string
+	role: string
+	imageSrc: string
+}
+
+export function TeamMemberCard({
+	// Changed from default export to named export
+	name,
+	role,
+	imageSrc, // Changed imgSrc to imageSrc to match prop name
+}: TeamMemberCardProps) {
+	return (
+		<div className="w-fit rounded-lg bg-slate-800 p-8">
+			<img
+				src={imageSrc} // Changed imgSrc to imageSrc
+				alt="An employee"
+				className="mx-auto h-64 w-64 rounded-full"
+			/>
+
+			<div className="pt-6">
+				<h3 className="font-semi-bold text-center text-white">{name}</h3>
+				<p className="pt-1 text-center text-slate-400">{role}</p>
+
+				<div className="flex justify-center gap-4 pt-6 text-slate-400">
+					<RiTwitterXFill />
+					<RiLinkedinBoxFill />
+				</div>
+			</div>
+		</div> // Added a closing div tag here
+	)
+} // Added a closing brace here
+
 export default function App() {
 	const data = useLoaderData<typeof loader | null>()
 	const nonce = useNonce()
@@ -25,28 +59,25 @@ export default function App() {
 			<div className="flex h-screen flex-col justify-between">
 				<div className="flex-1">
 					<main className="grid h-full place-items-center bg-white">
-						<h1 className="text-mega text-black">Your Journey Begins!</h1>
-						<div className="w-fit rounded-lg bg-slate-800 p-8">
-							<img
-								src={headshot1}
-								alt="An employee"
-								className="mx-auto h-64 w-64 rounded-full"
-							/>
+						<h1 className="text-mega text-black">Epic News!</h1>
 
-							<div className="pt-6">
-								<h3 className="font-semi-bold text-center text-white">
-									Leonard Krasner
-								</h3>
-								<p className="pt-1 text-center text-slate-400">
-									Senior Designer
-								</p>
+						<TeamMemberCard
+							name="Leonard Krasner"
+							role="Senior Designer"
+							imageSrc={headshot1}
+						/>
 
-								<div className="flex justify-center gap-4 pt-6 text-slate-400">
-									<RiTwitterXFill />
-									<RiLinkedinBoxFill />
-								</div>
-							</div>
-						</div>
+						<TeamMemberCard
+							name="Johnson Smith"
+							role="Lead Developer"
+							imageSrc={headshot2}
+						/>
+
+						<TeamMemberCard
+							name="Jane Doe"
+							role="Marketing Manager"
+							imageSrc={headshot3}
+						/>
 					</main>
 				</div>
 			</div>
