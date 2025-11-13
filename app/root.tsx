@@ -1,15 +1,17 @@
+import { RiTwitterXFill, RiLinkedinBoxFill } from 'react-icons/ri'
 import { useLoaderData } from 'react-router'
 import { type Route } from './+types/root.ts'
 import { type loader } from './__root.server.tsx'
 import { GeneralErrorBoundary } from './components/error-boundary.tsx'
+import FooterBasic from './components/organisms/Footer/FooterBasic'
+import HeaderWithSearch from './components/organisms/HeaderWithSearch'
 import Document from './components/shared-layout/Document.tsx'
+import { ThemeSwitch, useTheme } from './routes/resources+/theme-switch.tsx'
 import { useNonce } from './utils/nonce-provider.ts'
 import rootLinkElements from './utils/providers/rootLinkElements.ts'
 import headshot1 from '~/assets/jpg/portrait-01.jpg'
 import headshot2 from '~/assets/jpg/portrait-02.jpg'
 import headshot3 from '~/assets/jpg/portrait-03.jpg'
-import { RiTwitterXFill, RiLinkedinBoxFill } from 'react-icons/ri'
-import { ThemeSwitch, useTheme } from './routes/resources+/theme-switch.tsx'
 
 export const links: Route.LinksFunction = () => {
 	return rootLinkElements
@@ -58,6 +60,7 @@ export default function App() {
 
 	return (
 		<Document theme={theme} nonce={nonce} honeyProps={data?.honeyProps}>
+			<HeaderWithSearch />
 			<div className="flex h-screen flex-col justify-between">
 				<div className="flex-1">
 					<main className="grid h-full place-items-center">
@@ -87,6 +90,7 @@ export default function App() {
 				<div className="container flex justify-between pb-5">
 					<ThemeSwitch userPreference={data?.requestInfo.userPrefs.theme} />
 				</div>
+				<FooterBasic />
 			</div>
 		</Document>
 	)
