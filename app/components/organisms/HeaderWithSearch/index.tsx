@@ -14,7 +14,7 @@ export default function HeaderWithSearch() {
 		<header className="container py-6">
 			<nav className="flex flex-wrap items-center justify-between gap-4 sm:flex-nowrap md:gap-8">
 				<div>
-					<span className="text-foreground text-sm">"Epic News"</span>
+					<span className="text-foreground text-sm">Epic News</span>
 				</div>
 				<div className="ml-auto hidden max-w-sm flex-1 sm:block">
 					{searchBar}
