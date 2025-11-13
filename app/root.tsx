@@ -9,6 +9,7 @@ import headshot1 from '~/assets/jpg/portrait-01.jpg'
 import headshot2 from '~/assets/jpg/portrait-02.jpg'
 import headshot3 from '~/assets/jpg/portrait-03.jpg'
 import { RiTwitterXFill, RiLinkedinBoxFill } from 'react-icons/ri'
+import { ThemeSwitch, useTheme } from './routes/resources+/theme-switch.tsx'
 
 export const links: Route.LinksFunction = () => {
 	return rootLinkElements
@@ -53,13 +54,14 @@ export function TeamMemberCard({
 export default function App() {
 	const data = useLoaderData<typeof loader | null>()
 	const nonce = useNonce()
+	const theme = useTheme()
 
 	return (
-		<Document nonce={nonce} honeyProps={data?.honeyProps}>
+		<Document theme={theme} nonce={nonce} honeyProps={data?.honeyProps}>
 			<div className="flex h-screen flex-col justify-between">
 				<div className="flex-1">
-					<main className="grid h-full place-items-center bg-white">
-						<h1 className="text-mega text-black">Epic News!</h1>
+					<main className="grid h-full place-items-center">
+						<h1 className="text-mega">Epic News!</h1>
 
 						<div className="m-4 flex gap-4">
 							<TeamMemberCard
@@ -81,6 +83,9 @@ export default function App() {
 							/>
 						</div>
 					</main>
+				</div>
+				<div className="container flex justify-between pb-5">
+					<ThemeSwitch userPreference={data?.requestInfo.userPrefs.theme} />
 				</div>
 			</div>
 		</Document>
