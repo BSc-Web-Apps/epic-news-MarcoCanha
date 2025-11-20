@@ -5,10 +5,12 @@ import { type loader } from './__root.server.tsx'
 import { GeneralErrorBoundary } from './components/error-boundary.tsx'
 import FooterBasic from './components/organisms/Footer/FooterBasic'
 import HeaderWithSearch from './components/organisms/HeaderWithSearch'
+import HeroCallToAction from './components/organisms/Hero/HeroCallToAction.tsx'
 import Document from './components/shared-layout/Document.tsx'
 import { ThemeSwitch, useTheme } from './routes/resources+/theme-switch.tsx'
 import { useNonce } from './utils/nonce-provider.ts'
 import rootLinkElements from './utils/providers/rootLinkElements.ts'
+import hero1 from '~/assets/jpg/IceTea-header.jpg'
 import headshot1 from '~/assets/jpg/portrait-01.jpg'
 import headshot2 from '~/assets/jpg/portrait-02.jpg'
 import headshot3 from '~/assets/jpg/portrait-03.jpg'
@@ -65,6 +67,16 @@ export default function App() {
 				<div className="flex-1">
 					<main className="grid h-full place-items-center">
 						<h1 className="text-mega">Epic News!</h1>
+						<div className="w-full bg-red-300 py-16">
+							<HeroCallToAction image={hero1} imageRight={true}>
+								<div className="flex flex-col gap-8 px-8">
+									<h2 className="text-h2">Welcome to Epic News</h2>
+									<p className="text-lg">
+										Keep up to date with the latest tech news.
+									</p>
+								</div>
+							</HeroCallToAction>
+						</div>
 
 						<div className="m-4 flex gap-4">
 							<TeamMemberCard
