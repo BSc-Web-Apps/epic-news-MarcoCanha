@@ -1,5 +1,5 @@
 import { RiTwitterXFill, RiLinkedinBoxFill } from 'react-icons/ri'
-import { useLoaderData } from 'react-router'
+import { useLoaderData, Outlet } from 'react-router'
 import { type Route } from './+types/root.ts'
 import { type loader } from './__root.server.tsx'
 import { GeneralErrorBoundary } from './components/error-boundary.tsx'
@@ -65,39 +65,7 @@ export default function App() {
 			<HeaderWithSearch />
 			<div className="flex h-screen flex-col justify-between">
 				<div className="flex-1">
-					<main className="grid h-full place-items-center">
-						<h1 className="text-mega">Epic News!</h1>
-						<div className="w-full bg-red-300 py-16">
-							<HeroCallToAction image={hero1} imageRight={true}>
-								<div className="flex flex-col gap-8 px-8">
-									<h2 className="text-h2">Welcome to Epic News</h2>
-									<p className="text-lg">
-										Keep up to date with the latest tech news.
-									</p>
-								</div>
-							</HeroCallToAction>
-						</div>
-
-						<div className="m-4 flex gap-4">
-							<TeamMemberCard
-								name="Leonard Krasner"
-								role="Senior Designer"
-								imageSrc={headshot1}
-							/>
-
-							<TeamMemberCard
-								name="Johnson Smith"
-								role="Lead Developer"
-								imageSrc={headshot2}
-							/>
-
-							<TeamMemberCard
-								name="Jane Doe"
-								role="Marketing Manager"
-								imageSrc={headshot3}
-							/>
-						</div>
-					</main>
+					<Outlet />
 				</div>
 				<div className="container flex justify-between pb-5">
 					<ThemeSwitch userPreference={data?.requestInfo.userPrefs.theme} />
