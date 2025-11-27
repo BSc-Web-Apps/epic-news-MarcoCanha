@@ -35,6 +35,16 @@ export default function NewsPage() {
 					>
 						Business
 					</NavLink>
+
+					<NavLink
+						to="reveiws"
+						prefetch="intent"
+						className={({ isActive }) =>
+							`${isActive ? 'text-blue-300 underline underline-offset-8' : 'text-blue-500'}`
+						}
+					>
+						Reviews
+					</NavLink>
 				</div>
 			</div>
 
