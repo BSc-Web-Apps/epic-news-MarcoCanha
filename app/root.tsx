@@ -1,5 +1,6 @@
 import { RiTwitterXFill, RiLinkedinBoxFill } from 'react-icons/ri'
 import { useLoaderData, Outlet } from 'react-router'
+import { AuthenticityTokenProvider } from 'remix-utils/csrf/react'
 import { type Route } from './+types/root.ts'
 import { type loader } from './__root.server.tsx'
 import { GeneralErrorBoundary } from './components/error-boundary.tsx'
@@ -7,6 +8,8 @@ import FooterBasic from './components/organisms/Footer/FooterBasic'
 import HeaderWithSearch from './components/organisms/HeaderWithSearch'
 import HeroCallToAction from './components/organisms/Hero/HeroCallToAction.tsx'
 import Document from './components/shared-layout/Document.tsx'
+import { useToast } from './components/toaster.tsx'
+import { EpicToaster } from './components/ui/sonner.tsx'
 import { ThemeSwitch, useTheme } from './routes/resources+/theme-switch.tsx'
 import { useNonce } from './utils/nonce-provider.ts'
 import rootLinkElements from './utils/providers/rootLinkElements.ts'
@@ -59,20 +62,31 @@ export default function App() {
 	const data = useLoaderData<typeof loader | null>()
 	const nonce = useNonce()
 	const theme = useTheme()
+	useToast(data?.toast)
 
 	return (
-		<Document theme={theme} nonce={nonce} honeyProps={data?.honeyProps}>
-			<HeaderWithSearch />
-			<div className="flex h-screen flex-col justify-between">
-				<div className="flex-1">
-					<Outlet />
+		<AuthenticityTokenProvider token={'invalid'}>
+			<Document theme={theme} nonce={nonce} honeyProps={data?.honeyProps}>
+				<HeaderWithSearch />
+				<div className="flex h-screen flex-col justify-between">
+					<div className="flex-1">
+						<Outlet />
+					</div>
+					<div className="container flex justify-between pb-5">
+						<ThemeSwitch userPreference={data?.requestInfo.userPrefs.theme} />
+					</div>
+					<FooterBasic />
 				</div>
-				<div className="container flex justify-between pb-5">
-					<ThemeSwitch userPreference={data?.requestInfo.userPrefs.theme} />
-				</div>
-				<FooterBasic />
-			</div>
-		</Document>
+				<EpicToaster
+					closeButton
+					position="bottom-right"
+					theme={theme}
+					expand
+					richColors
+					duration={5000}
+				/>
+			</Document>
+		</AuthenticityTokenProvider>
 	)
 }
 

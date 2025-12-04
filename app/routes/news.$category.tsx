@@ -23,14 +23,14 @@ export default function NewsCategoryPage() {
 	return (
 		<div className="container py-16">
 			<h2 className="text-h2">{categoryTitle}</h2>
+
+			<div className="grid grid-cols-5 gap-6">
+				<WireframeBlock />
+				<WireframeBlock />
+				<WireframeBlock />
+				<WireframeBlock />
+				<WireframeBlock />
+			</div>
 		</div>
 	)
 }
-
-;<div className="grid grid-cols-5 gap-6">
-	<WireframeBlock />
-	<WireframeBlock />
-	<WireframeBlock />
-	<WireframeBlock />
-	<WireframeBlock />
-</div>
