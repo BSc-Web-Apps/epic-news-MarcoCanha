@@ -11,6 +11,11 @@ export async function loader({ params }: LoaderFunctionArgs) {
 	const categoryTitle = toTitleCase(category)
 
 	const filteredArticles = await prisma.article.findMany({
+		where: {
+			category: {
+				slug: category,
+			},
+		},
 		select: {
 			id: true,
 			title: true,
@@ -28,6 +33,7 @@ export default function NewsCategoryPage() {
 	return (
 		<div className="container py-16">
 			<h2 className="text-h2">{categoryTitle}</h2>
+
 			<div className="mt-8 grid gap-6 md:grid-cols-3 lg:grid-cols-5">
 				{filteredArticles.map((article) => (
 					<ArticleCard
@@ -35,7 +41,7 @@ export default function NewsCategoryPage() {
 						articleId={article.id}
 						title={article.title}
 						category={article.category?.name}
-						// objectKey={article.images[0]?.objectKey}
+						objectKey={article.images[0]?.objectKey}
 					/>
 				))}
 			</div>

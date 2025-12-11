@@ -40,6 +40,9 @@ export default function ArticleRoute() {
 	return article ? (
 		<div className="container py-16">
 			<h2 className="text-h2 pb-8">{article.title}</h2>
+			<p>{article.category?.name || 'General news'}</p>
+			<p>{article.content} </p>
+			<p>{article.owner.name} </p>
 		</div>
 	) : (
 		<ArticleNotFound />
