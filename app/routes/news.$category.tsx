@@ -1,5 +1,7 @@
 import { invariant } from '@epic-web/invariant'
 import { type LoaderFunctionArgs, data, useLoaderData } from 'react-router'
+import ArticleCard from '~/components/organisms/ArticleCard.tsx'
+import { prisma } from '~/utils/db.server.ts'
 import { toTitleCase } from '~/utils/stringUtils.ts'
 
 export async function loader({ params }: LoaderFunctionArgs) {
@@ -8,28 +10,32 @@ export async function loader({ params }: LoaderFunctionArgs) {
 	invariant(typeof category === 'string', 'Category not found')
 	const categoryTitle = toTitleCase(category)
 
-	return data({ categoryTitle })
-}
+	const filteredArticles = await prisma.article.findMany({
+		select: {
+			id: true,
+			title: true,
+			category: { select: { name: true } },
+			images: { select: { id: true } },
+		},
+	})
 
-const WireframeBlock = () => {
-	return (
-		<div className="h-72 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700" />
-	)
+	return data({ categoryTitle, filteredArticles })
 }
 
 export default function NewsCategoryPage() {
-	const { categoryTitle } = useLoaderData<typeof loader>()
+	const { categoryTitle, filteredArticles } = useLoaderData<typeof loader>()
 
 	return (
 		<div className="container py-16">
 			<h2 className="text-h2">{categoryTitle}</h2>
-
-			<div className="grid grid-cols-5 gap-6">
-				<WireframeBlock />
-				<WireframeBlock />
-				<WireframeBlock />
-				<WireframeBlock />
-				<WireframeBlock />
+			<div className="mt-8 grid gap-6 md:grid-cols-3 lg:grid-cols-5">
+				{filteredArticles.map((article) => (
+					<ArticleCard
+						key={article.id}
+						title={article.title}
+						category={article.category?.name}
+					/>
+				))}
 			</div>
 		</div>
 	)
