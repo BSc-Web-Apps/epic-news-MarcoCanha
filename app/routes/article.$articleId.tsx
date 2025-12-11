@@ -1,24 +1,47 @@
 import { invariant } from '@epic-web/invariant'
 import { type LoaderFunctionArgs, data, useLoaderData } from 'react-router'
 import { prisma } from '~/utils/db.server.ts'
-import { toTitleCase } from '~/utils/stringUtils.ts'
 
 export async function loader({ params }: LoaderFunctionArgs) {
 	const { articleId } = params
 
-	invariant(typeof articleId === 'string', 'Category not found')
+	invariant(typeof articleId === 'string', 'No article ID provided')
 
-	return data({ articleId })
+	// Fetch the article by ID
+	const article = await prisma.article.findUnique({
+		where: { id: articleId },
+		select: {
+			id: true,
+			title: true,
+			content: true,
+			category: { select: { name: true } },
+			owner: { select: { name: true } },
+			images: { select: { objectKey: true } },
+		},
+	})
+
+	return data({ article })
 }
 
-export default function ArticlePage() {
-	const { articleId } = useLoaderData<typeof loader>()
-
+const ArticleNotFound = () => {
 	return (
-		<div className="container py-16">
-			<h2 className="text-h2 pb-8">My amazing news article</h2>
-
-			<p>Article ID: {articleId}</p>
+		<div className="container flex h-full flex-1 flex-col items-center justify-center">
+			<h2 className="text-h2 pb-8 text-center">No article found 🤔</h2>
+			<p className="text-center text-xl">
+				Please check the article ID in your browser and try again.
+			</p>
 		</div>
+	)
+}
+
+export default function ArticleRoute() {
+	const { article } = useLoaderData<typeof loader>()
+
+	return article ? (
+		<div className="container py-16">
+			<h2 className="text-h2 pb-8">{article.title}</h2>
+		</div>
+	) : (
+		<ArticleNotFound />
 	)
 }
