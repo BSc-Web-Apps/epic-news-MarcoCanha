@@ -1,12 +1,25 @@
-import { type MetaFunction } from 'react-router'
+import { data, type MetaFunction } from 'react-router'
 import HeroCallToAction from '#app/components/organisms/Hero/HeroCallToAction.tsx'
 import { TeamMemberCard } from '#app/root.tsx'
 import hero1 from '~/assets/jpg/IceTea-header.jpg'
 import headshot1 from '~/assets/jpg/portrait-01.jpg'
 import headshot2 from '~/assets/jpg/portrait-02.jpg'
 import headshot3 from '~/assets/jpg/portrait-03.jpg'
+import { prisma } from '~/utils/db.server.ts'
 
 export const meta: MetaFunction = () => [{ title: 'Epic News' }]
+
+export async function loader() {
+	const filteredArticles = await prisma.article.findMany({
+		select: {
+			id: true,
+			title: true,
+			category: { select: { name: true } },
+			images: { select: { objectKey: true } },
+		},
+	})
+	return data({ filteredArticles })
+}
 
 export default function Index() {
 	return (

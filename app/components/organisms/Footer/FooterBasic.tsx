@@ -6,7 +6,7 @@ export interface FooterProps {
 }
 
 const FooterBasic = ({
-	companyName = 'CHANGE THIS TO YOUR COMPANY NAME!',
+	companyName = 'Epic News',
 	altText = 'Our company logo',
 }: FooterProps) => {
 	return (
