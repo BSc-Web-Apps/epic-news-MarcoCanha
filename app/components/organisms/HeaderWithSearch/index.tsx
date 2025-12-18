@@ -2,7 +2,7 @@ import { useMatches, Link } from 'react-router'
 import { SearchBar } from '#app/components/search-bar.tsx'
 import { Button } from '#app/components/ui/button.tsx'
 import { UserDropdown } from '#app/components/user-dropdown.tsx'
-import { useOptionalUser } from '#app/utils/user.ts'
+import { useOptionalUser, userHasRole } from '#app/utils/user.ts'
 import logo from '/app/assets/png/Epic-logo-Small.png'
 
 export default function HeaderWithSearch() {
@@ -10,6 +10,7 @@ export default function HeaderWithSearch() {
 	const isOnSearchPage = matches.find((m) => m.id === 'routes/users+/index')
 	const searchBar = isOnSearchPage ? null : <SearchBar status="idle" />
 	const user = useOptionalUser()
+	const isAdminUser = user ? userHasRole(user, 'admin') : false
 
 	return (
 		<header className="bg-#122023 container py-6">
@@ -22,6 +23,14 @@ export default function HeaderWithSearch() {
 				</Link>
 
 				<div className="flex flex-1 justify-center gap-8">
+					{isAdminUser && (
+						<Link
+							to="/admin-review"
+							className="text-foreground rounded-lg bg-green-900 px-4 py-2 text-sm font-semibold transition hover:bg-green-800"
+						>
+							Admin Review
+						</Link>
+					)}
 					<Link
 						to="/news"
 						prefetch="intent"
