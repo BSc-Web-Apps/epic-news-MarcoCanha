@@ -4,7 +4,7 @@ import { invariantResponse } from '@epic-web/invariant'
 import { formatDistanceToNow } from 'date-fns'
 import { Img } from 'openimg/react'
 import { useRef, useEffect } from 'react'
-import { data, Form, Link } from 'react-router'
+import { data, Form, Link, useLoaderData } from 'react-router'
 import { z } from 'zod'
 import { GeneralErrorBoundary } from '#app/components/error-boundary.tsx'
 import { floatingToolbarClassName } from '#app/components/floating-toolbar.tsx'
@@ -248,3 +248,9 @@ export function ErrorBoundary() {
 		/>
 	)
 }
+
+// export default function ArticlePage() {
+// 	const { article } = useLoaderData<typeof loader>()
+
+// 	return article
+// }

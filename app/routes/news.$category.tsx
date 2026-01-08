@@ -30,7 +30,11 @@ export async function loader({ params }: LoaderFunctionArgs) {
 export default function NewsCategoryPage() {
 	const { categoryTitle, filteredArticles } = useLoaderData<typeof loader>()
 
-	return (
+	const hasArticles = filteredArticles.length > 0
+
+	console.log({ filteredArticles, hasArticles })
+
+	return hasArticles ? (
 		<div className="container py-16">
 			<h2 className="text-h2">{categoryTitle}</h2>
 
@@ -45,6 +49,10 @@ export default function NewsCategoryPage() {
 					/>
 				))}
 			</div>
+		</div>
+	) : (
+		<div className="text-h2 container py-16">
+			There are currently no {categoryTitle} Articles
 		</div>
 	)
 }
