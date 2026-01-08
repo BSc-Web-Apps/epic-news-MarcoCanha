@@ -248,9 +248,3 @@ export function ErrorBoundary() {
 		/>
 	)
 }
-
-// export default function ArticlePage() {
-// 	const { article } = useLoaderData<typeof loader>()
-
-// 	return article
-// }
