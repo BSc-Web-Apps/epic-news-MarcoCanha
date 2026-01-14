@@ -23,8 +23,8 @@ export async function loader() {
 
 export default function Index() {
 	return (
-		<main className="grid h-full place-items-center">
-			<h1 className="text-mega">Epic News!</h1>
+		<main className="place-items-left grid h-full">
+			<h1 className="text-bold text-5xl"> Welcome to Epic News!</h1>
 			<div className="w-full bg-red-300 py-16">
 				<HeroCallToAction image={hero1} imageRight={true}>
 					<div className="flex flex-col gap-8 px-8">
@@ -36,7 +36,7 @@ export default function Index() {
 				</HeroCallToAction>
 			</div>
 
-			<div className="m-4 flex gap-4">
+			<div className="m-4 flex place-items-center gap-4">
 				<TeamMemberCard
 					name="Leonard Krasner"
 					role="Senior Designer"

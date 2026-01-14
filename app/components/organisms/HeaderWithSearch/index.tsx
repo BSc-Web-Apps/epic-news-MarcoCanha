@@ -3,7 +3,7 @@ import { SearchBar } from '#app/components/search-bar.tsx'
 import { Button } from '#app/components/ui/button.tsx'
 import { UserDropdown } from '#app/components/user-dropdown.tsx'
 import { useOptionalUser, userHasRole } from '#app/utils/user.ts'
-import logo from '/app/assets/png/Epic-logo-Small.png'
+import logo from '/app/assets/png/Epic-Logo-Black-Transparent.png'
 
 export default function HeaderWithSearch() {
 	const matches = useMatches()
@@ -13,12 +13,12 @@ export default function HeaderWithSearch() {
 	const isAdminUser = user ? userHasRole(user, 'admin') : false
 
 	return (
-		<header className="bg-green-600 py-6">
+		<header className="bg-[#2ecc40] py-6">
 			<nav className="container flex flex-wrap items-center justify-between gap-4 sm:flex-nowrap md:gap-8">
 				<Link to="/">
 					<div className="flex items-center gap-4">
 						<img src={logo} alt="Epic News Logo" className="w-16" />
-						<span className="text-foreground text-sm">Epic News</span>
+						<span className="text-foreground text-bold text-xl">Epic News</span>
 					</div>
 				</Link>
 
@@ -26,7 +26,7 @@ export default function HeaderWithSearch() {
 					{isAdminUser && (
 						<Link
 							to="/admin-review"
-							className="text-foreground rounded-lg bg-green-900 px-4 py-2 text-sm font-semibold transition hover:bg-green-800"
+							className="rounded-lg bg-[#122023] px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-400 hover:text-black"
 						>
 							Admin Review
 						</Link>
@@ -34,24 +34,24 @@ export default function HeaderWithSearch() {
 					<Link
 						to="/news"
 						prefetch="intent"
-						className="text-muted-foreground hover:text-foreground text-sm font-semibold transition"
+						className="rounded-lg bg-[#122023] px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-400 hover:text-black"
 					>
 						News
 					</Link>
 					<Link
-						to="/about-us"
+						to="/climate"
 						prefetch="intent"
-						className="text-muted-foreground hover:text-foreground text-sm font-semibold transition"
+						className="rounded-lg bg-[#122023] px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-400 hover:text-black"
 					>
-						About us
+						Climate
 					</Link>
 
 					<Link
-						to="/contact-us"
+						to="/culture"
 						prefetch="intent"
-						className="text-muted-foreground hover:text-foreground text-sm font-semibold transition"
+						className="rounded-lg bg-[#122023] px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-400 hover:text-black"
 					>
-						Contact us
+						Culture
 					</Link>
 				</div>
 
