@@ -1,16 +1,20 @@
-import { data, type MetaFunction } from 'react-router'
+import { data, useLoaderData, type MetaFunction } from 'react-router'
+import ArticleCard from '#app/components/organisms/ArticleCard.tsx'
 import HeroCallToAction from '#app/components/organisms/Hero/HeroCallToAction.tsx'
 import { TeamMemberCard } from '#app/root.tsx'
 import hero1 from '~/assets/jpg/IceTea-header.jpg'
 import headshot1 from '~/assets/jpg/portrait-01.jpg'
 import headshot2 from '~/assets/jpg/portrait-02.jpg'
 import headshot3 from '~/assets/jpg/portrait-03.jpg'
+import headshot4 from '~/assets/jpg/portrait-04.jpg'
+import headshot5 from '~/assets/jpg/portrait-05.jpg'
 import { prisma } from '~/utils/db.server.ts'
 
 export const meta: MetaFunction = () => [{ title: 'Epic News' }]
 
 export async function loader() {
-	const filteredArticles = await prisma.article.findMany({
+	const allArticles = await prisma.article.findMany({
+		take: 5,
 		select: {
 			id: true,
 			title: true,
@@ -18,10 +22,62 @@ export async function loader() {
 			images: { select: { objectKey: true } },
 		},
 	})
-	return data({ filteredArticles })
+
+	const techArticles = await prisma.article.findMany({
+		where: {
+			isPublished: true,
+			category: { slug: 'technology' },
+		},
+		select: {
+			id: true,
+			title: true,
+			category: { select: { name: true } },
+			images: { select: { objectKey: true } },
+		},
+	})
+
+	const entertainmentArticles = await prisma.article.findMany({
+		where: {
+			isPublished: true,
+			category: { slug: 'entertainment' },
+		},
+		select: {
+			id: true,
+			title: true,
+			category: { select: { name: true } },
+			images: { select: { objectKey: true } },
+		},
+	})
+
+	const businessArticles = await prisma.article.findMany({
+		where: {
+			isPublished: true,
+			category: { slug: 'business' },
+		},
+		select: {
+			id: true,
+			title: true,
+			category: { select: { name: true } },
+			images: { select: { objectKey: true } },
+		},
+	})
+
+	return data({
+		allArticles,
+		techArticles,
+		entertainmentArticles,
+		businessArticles,
+	})
 }
 
 export default function Index() {
+	const { allArticles, techArticles, entertainmentArticles, businessArticles } =
+		useLoaderData<typeof loader>()
+	const hasAllArticles = allArticles.length > 0
+	const hasTechArticles = techArticles.length > 0
+	const hasEntertainmentArticles = entertainmentArticles.length > 0
+	const hasBusinessArticles = businessArticles.length > 0
+
 	return (
 		<main className="place-items-left grid h-full">
 			<h1 className="text-bold text-5xl"> Welcome to Epic News!</h1>
@@ -36,7 +92,95 @@ export default function Index() {
 				</HeroCallToAction>
 			</div>
 
-			<div className="m-4 flex place-items-center gap-4">
+			<div className="container py-16 text-5xl">
+				<h2 className="text h-2">Latest News</h2>
+
+				<div className="mt-8 grid gap-6 p-16 md:grid-cols-3 lg:grid-cols-5">
+					{hasAllArticles ? (
+						allArticles.map((article) => (
+							<ArticleCard
+								key={article.id}
+								articleId={article.id}
+								title={article.title}
+								category={article.category?.name}
+								objectKey={article.images[0]?.objectKey}
+							/>
+						))
+					) : (
+						<div className="text-base">
+							There are no published articles to show
+						</div>
+					)}
+				</div>
+			</div>
+
+			<div className="container py-16 text-5xl">
+				<h2 className="text h-2">Technology</h2>
+
+				<div className="mt-8 grid gap-6 p-16 md:grid-cols-3 lg:grid-cols-5">
+					{hasTechArticles ? (
+						techArticles.map((article) => (
+							<ArticleCard
+								key={article.id}
+								articleId={article.id}
+								title={article.title}
+								category={article.category?.name}
+								objectKey={article.images[0]?.objectKey}
+							/>
+						))
+					) : (
+						<div className="text-base">
+							There are no published articles to show
+						</div>
+					)}
+				</div>
+			</div>
+
+			<div className="container py-16 text-5xl">
+				<h2 className="text h-2">Entertainment</h2>
+
+				<div className="mt-8 grid gap-6 p-16 md:grid-cols-3 lg:grid-cols-5">
+					{hasEntertainmentArticles ? (
+						entertainmentArticles.map((article) => (
+							<ArticleCard
+								key={article.id}
+								articleId={article.id}
+								title={article.title}
+								category={article.category?.name}
+								objectKey={article.images[0]?.objectKey}
+							/>
+						))
+					) : (
+						<div className="text-base">
+							There are no published articles to show
+						</div>
+					)}
+				</div>
+			</div>
+
+			<div className="container py-16 text-5xl">
+				<h2 className="text h-2">Business</h2>
+
+				<div className="mt-8 grid gap-6 p-16 md:grid-cols-3 lg:grid-cols-5">
+					{hasBusinessArticles ? (
+						businessArticles.map((article) => (
+							<ArticleCard
+								key={article.id}
+								articleId={article.id}
+								title={article.title}
+								category={article.category?.name}
+								objectKey={article.images[0]?.objectKey}
+							/>
+						))
+					) : (
+						<div className="text-base">
+							There are no published articles to show
+						</div>
+					)}
+				</div>
+			</div>
+
+			<div className="m-4 flex place-items-center gap-15">
 				<TeamMemberCard
 					name="Leonard Krasner"
 					role="Senior Designer"
@@ -53,6 +197,11 @@ export default function Index() {
 					name="Jane Doe"
 					role="Marketing Manager"
 					imageSrc={headshot3}
+				/>
+				<TeamMemberCard
+					name="Jane Doe"
+					role="Marketing Manager"
+					imageSrc={headshot4}
 				/>
 			</div>
 		</main>

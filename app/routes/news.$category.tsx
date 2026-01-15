@@ -38,7 +38,7 @@ export default function NewsCategoryPage() {
 		<div className="container py-16">
 			<h2 className="text-h2">{categoryTitle}</h2>
 
-			<div className="mt-8 grid gap-6 md:grid-cols-3 lg:grid-cols-5">
+			<div className="mt-8 grid md:grid-cols-3 lg:grid-cols-5">
 				{filteredArticles.map((article) => (
 					<ArticleCard
 						key={article.id}

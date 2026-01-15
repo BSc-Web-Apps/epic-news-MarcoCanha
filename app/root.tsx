@@ -17,6 +17,8 @@ import hero1 from '~/assets/jpg/IceTea-header.jpg'
 import headshot1 from '~/assets/jpg/portrait-01.jpg'
 import headshot2 from '~/assets/jpg/portrait-02.jpg'
 import headshot3 from '~/assets/jpg/portrait-03.jpg'
+import headshot4 from '~/assets/jpg/portrait-04.jpg'
+import headshot5 from '~/assets/jpg/portrait-05.jpg'
 
 export const links: Route.LinksFunction = () => {
 	return rootLinkElements
