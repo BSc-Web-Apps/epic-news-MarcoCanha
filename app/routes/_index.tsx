@@ -92,24 +92,30 @@ export default function Index() {
 				</HeroCallToAction>
 			</div>
 
-			<div className="container py-16 text-5xl">
-				<h2 className="text h-2">Latest News</h2>
+			<div className="container py-16">
+				<h2 className="text-h2 mb-8 font-normal">Latest news</h2>
 
-				<div className="mt-8 grid gap-6 p-16 md:grid-cols-3 lg:grid-cols-5">
-					{hasAllArticles ? (
-						allArticles.map((article) => (
-							<ArticleCard
-								key={article.id}
-								articleId={article.id}
-								title={article.title}
-								category={article.category?.name}
-								objectKey={article.images[0]?.objectKey}
-							/>
-						))
-					) : (
-						<div className="text-base">
-							There are no published articles to show
-						</div>
+				<div className="grid grid-cols-4 grid-rows-4 gap-6">
+					{allArticles.slice(0, 5).map((article, index) =>
+						index === 0 ? (
+							<div key={article.id} className="col-span-2 row-span-4">
+								<ArticleCard
+									articleId={article.id}
+									title={article.title}
+									category={article.category?.name}
+									variant="large"
+								/>
+							</div>
+						) : (
+							<div key={article.id} className="col-span-1 row-span-2">
+								<ArticleCard
+									articleId={article.id}
+									title={article.title}
+									category={article.category?.name}
+									variant="small"
+								/>
+							</div>
+						),
 					)}
 				</div>
 			</div>
@@ -126,6 +132,7 @@ export default function Index() {
 								title={article.title}
 								category={article.category?.name}
 								objectKey={article.images[0]?.objectKey}
+								size="md"
 							/>
 						))
 					) : (
@@ -148,6 +155,7 @@ export default function Index() {
 								title={article.title}
 								category={article.category?.name}
 								objectKey={article.images[0]?.objectKey}
+								size="md"
 							/>
 						))
 					) : (
@@ -170,6 +178,7 @@ export default function Index() {
 								title={article.title}
 								category={article.category?.name}
 								objectKey={article.images[0]?.objectKey}
+								size="md"
 							/>
 						))
 					) : (

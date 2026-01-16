@@ -1,5 +1,6 @@
 import { invariant } from '@epic-web/invariant'
 import { type LoaderFunctionArgs, data, useLoaderData } from 'react-router'
+import { RelatedArticlesSidebar } from '#app/routes/related-articles-sidebar.tsx'
 import { prisma } from '~/utils/db.server.ts'
 
 export async function loader({ params }: LoaderFunctionArgs) {
@@ -40,9 +41,9 @@ export default function ArticleRoute() {
 	return article ? (
 		<div className="container py-16">
 			<h2 className="text-h2 pb-8">{article.title}</h2>
-			<p>{article.category?.name || 'General news'}</p>
-			<p>{article.content} </p>
-			<p>{article.owner.name} </p>
+			<h2 className="text-2xl">{article.category?.name || 'General news'}</h2>
+			<h2 className="pb-8">{article.content} </h2>
+			<h2 className="text-bold text-xl">{article.owner.name} </h2>
 		</div>
 	) : (
 		<ArticleNotFound />
