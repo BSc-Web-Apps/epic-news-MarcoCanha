@@ -211,7 +211,7 @@ export default function Index() {
 					imageSrc={headshot3}
 				/>
 				<TeamMemberCard
-					name="Jane Doe"
+					name="Olivia Joulie"
 					role="Marketing Manager"
 					imageSrc={headshot4}
 				/>
