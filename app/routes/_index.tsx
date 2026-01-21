@@ -106,6 +106,7 @@ export default function Index() {
 									articleId={article.id}
 									title={article.title}
 									category={article.category?.name}
+									objectKey={article.images[0]?.objectKey}
 									variant="large"
 								/>
 							</div>
@@ -115,6 +116,7 @@ export default function Index() {
 									articleId={article.id}
 									title={article.title}
 									category={article.category?.name}
+									objectKey={article.images[0]?.objectKey}
 									variant="small"
 								/>
 							</div>

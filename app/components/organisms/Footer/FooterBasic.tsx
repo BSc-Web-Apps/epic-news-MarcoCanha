@@ -16,12 +16,21 @@ const FooterBasic = ({
 				<div className="w-50">
 					<img src={logo} alt={altText} className="flex gap-4" />
 				</div>
+
 				<Link
 					to="/about-us"
 					prefetch="intent"
 					className="rounded-lg bg-white px-4 py-2 text-sm font-semibold transition hover:bg-slate-400"
 				>
 					About Us
+				</Link>
+
+				<Link
+					to="/accessibility"
+					prefetch="intent"
+					className="rounded-lg bg-white px-4 py-2 text-sm font-semibold transition hover:bg-slate-400"
+				>
+					Accessibility
 				</Link>
 
 				<Link
@@ -38,14 +47,6 @@ const FooterBasic = ({
 					className="rounded-lg bg-white px-4 py-2 text-sm font-semibold transition hover:bg-slate-400"
 				>
 					Cookies
-				</Link>
-
-				<Link
-					to="/accessibility"
-					prefetch="intent"
-					className="rounded-lg bg-white px-4 py-2 text-sm font-semibold transition hover:bg-slate-400"
-				>
-					Accessibility
 				</Link>
 
 				<Link
