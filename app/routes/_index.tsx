@@ -24,6 +24,7 @@ export async function loader() {
 	})
 
 	const techArticles = await prisma.article.findMany({
+		take: 5,
 		where: {
 			isPublished: true,
 			category: { slug: 'technology' },
@@ -37,6 +38,7 @@ export async function loader() {
 	})
 
 	const entertainmentArticles = await prisma.article.findMany({
+		take: 5,
 		where: {
 			isPublished: true,
 			category: { slug: 'entertainment' },
@@ -50,6 +52,7 @@ export async function loader() {
 	})
 
 	const businessArticles = await prisma.article.findMany({
+		take: 5,
 		where: {
 			isPublished: true,
 			category: { slug: 'business' },
